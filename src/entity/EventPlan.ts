@@ -5,8 +5,9 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import Member from './Member';
 import AnswerDefinition from 'src/entity/AnswerDefinition';
+import Member from 'src/entity/Member';
+import AnswerDate from 'src/entity/AnswerDate';
 
 @Entity()
 export default class EventPlan {
@@ -14,7 +15,7 @@ export default class EventPlan {
   id!: string;
 
   @Column({ generated: 'uuid', unique: true })
-  editId!: string;
+  editKey!: string;
 
   @Column()
   title!: string;
@@ -22,9 +23,12 @@ export default class EventPlan {
   @CreateDateColumn()
   createdDate!: Date;
 
-  @OneToMany(() => Member, (member) => member.id)
-  members!: Member[];
-
   @OneToMany(() => AnswerDefinition, (answerDefinition) => answerDefinition.id)
   answerDefinitions!: AnswerDefinition[];
+
+  @OneToMany(() => AnswerDate, (date) => date.id)
+  dates!: AnswerDate[];
+
+  @OneToMany(() => Member, (member) => member.id)
+  members!: Member[];
 }

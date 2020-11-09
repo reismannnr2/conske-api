@@ -6,7 +6,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import AnswerDefinition from './AnswerDefinition';
-import DateAnswer from './DateAnswer';
+import AnswerDate from './AnswerDate';
+import Member from './Member';
 
 @Entity()
 export default class Answer {
@@ -14,20 +15,26 @@ export default class Answer {
   id!: number;
 
   @Column()
-  definitionId!: number;
-
-  @ManyToOne(() => AnswerDefinition, (definition) => definition.id, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'definitionId', referencedColumnName: 'id' })
-  definition!: AnswerDefinition;
+  comment!: string;
 
   @Column()
-  dateAnswerId!: number;
+  dateId!: number;
 
-  @ManyToOne(() => DateAnswer, (dateAnswer) => dateAnswer.id, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'dateAnswerId', referencedColumnName: 'id' })
-  dateAnswer!: DateAnswer;
+  @ManyToOne(() => AnswerDate, (date) => date.id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'dateId', referencedColumnName: 'id' })
+  answerDate!: AnswerDate;
+
+  @Column()
+  defId!: number;
+
+  @ManyToOne(() => AnswerDefinition, (def) => def.id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'defId', referencedColumnName: 'id' })
+  answerDef!: AnswerDefinition;
+
+  @Column()
+  memberID!: number;
+
+  @ManyToOne(() => AnswerDate, (date) => date.id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'memberId', referencedColumnName: 'id' })
+  member!: Member;
 }

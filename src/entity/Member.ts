@@ -1,13 +1,13 @@
 import {
   Column,
+  Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import EventPlan from './EventPlan';
-import DateAnswer from './DateAnswer';
+import EventPlan from 'src/entity/EventPlan';
 
+@Entity()
 export default class Member {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -16,18 +16,12 @@ export default class Member {
   name!: string;
 
   @Column()
-  sortNo!: number;
-
-  @Column({ nullable: true })
-  comment?: string | null;
+  comment!: string;
 
   @Column()
-  eventPlanId!: string;
+  eventId!: string;
 
-  @ManyToOne(() => EventPlan, (plan) => plan.id, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'eventPlanId', referencedColumnName: 'id' })
-  eventPlan!: EventPlan;
-
-  @OneToMany(() => DateAnswer, (answer) => answer.id)
-  dateAnswers!: DateAnswer[];
+  @ManyToOne(() => EventPlan, (event) => event.id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'eventId', referencedColumnName: 'id' })
+  event!: EventPlan;
 }

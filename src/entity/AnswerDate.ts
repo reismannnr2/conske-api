@@ -8,23 +8,17 @@ import {
 import EventPlan from './EventPlan';
 
 @Entity()
-export default class AnswerDefinition {
+export default class AnswerDate {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @Column()
-  text!: string;
-
-  @Column()
-  exclusive!: boolean;
-
-  @Column()
-  sortNo!: number;
+  raw!: Date;
 
   @Column()
   eventId!: string;
 
-  @ManyToOne(() => EventPlan, (plan) => plan.id, { onDelete: 'CASCADE' })
+  @ManyToOne(() => EventPlan, (event) => event.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'eventId', referencedColumnName: 'id' })
   event!: EventPlan;
 }

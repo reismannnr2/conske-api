@@ -1,8 +1,6 @@
 import { getRepository } from 'typeorm';
-import Answer from 'src/entity/Answer';
+import EventPlan from 'src/entity/EventPlan';
 
-export default undefined;
-
-function foo() {
-  const repo = getRepository(Answer);
-}
+(() => {
+  return getRepository(EventPlan);
+})();
